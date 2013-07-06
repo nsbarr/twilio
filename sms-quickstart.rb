@@ -23,7 +23,7 @@ get '/sms-quickstart' do
   #logic on what to send the user
   if sms_count == 0 #ask the user for a topic
     message = "Hi there, what would you like me to write you a poem about?"
-  else sms_count == 1 #acknowledge topic and send request to poet
+  elsif sms_count == 1 #acknowledge topic and send request to poet
     message = "OK, I'll write a poem about #{topic}. Give me a few minutes, will 'ya?"
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
 
