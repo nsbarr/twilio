@@ -33,8 +33,12 @@ get '/sms-quickstart' do
       poem = params[:Body] #the body is the poem 
       message = "Thanks for the poem! Can you remind me the topic?"
     elsif session["counter"] == 1 
-      topic_reminder = params[:Body]
+      topic = params[:Body]
       message = "Got it, thanks!"
+      
+      if request_log[topic] == nil
+        message = "Hm, something's wrong with this. Try again later."
+      else
       #twilio info
       twilio_sid = "ACfff561dd3ac397a29183f7bf7d68e370"
       twilio_token = "cbb3471db9d83b61598159b5210404f1"
@@ -42,9 +46,10 @@ get '/sms-quickstart' do
       @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
       @twilio_client.account.sms.messages.create(
           :from => twilio_phone_number,
-          :to => request_log[topic_reminder],
+          :to => request_log[topic],
           :body => poem
       )
+      end
     else
       message = "Hush now, poet."
     end
