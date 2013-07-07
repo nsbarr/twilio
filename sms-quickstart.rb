@@ -56,7 +56,7 @@ get '/sms-quickstart' do
       requester = params[:From]
       topic = params[:Body]
       request_log[topic] = requester
-      message = "OK, I'll write a poem about #{topic}. Give me a few minutes, will ya?"
+      message = "OK, I'll write a poem about #{topic} and it says here you're #{request_log[topic]}. Give me a few minutes, will ya?"
       #twilio info
       twilio_sid = "ACfff561dd3ac397a29183f7bf7d68e370"
       twilio_token = "cbb3471db9d83b61598159b5210404f1"
