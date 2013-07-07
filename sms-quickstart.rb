@@ -31,7 +31,7 @@ get '/sms-quickstart' do
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
 
     @twilio_client.account.sms.messages.create(
-      :from => "{twilio_phone_number}",
+      :from => twilio_phone_number,
       :to => poet_to_send_to,
       :body => "Oh hey, won't you write someone a poem about #{topic}? Just post your poem as a reply."
       )
