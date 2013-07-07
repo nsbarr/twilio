@@ -17,7 +17,7 @@ get '/sms-quickstart' do
   #for now, always assume we just got the request from the user
   topic = params[:Body]
   #logic on what to send the user
-  if topic = "reset"
+  if topic == "RESET"
     session["counter"] = 0
     message = "Ok let's start over."
   elsif sms_count == 0 #ask the user for a topic
