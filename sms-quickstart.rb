@@ -25,7 +25,7 @@ get '/sms-quickstart' do
   elsif params[:Body] == "poemstatus"
     message = poem_status
   elsif params[:Body] == "reset"
-      session["counter"] = 0
+      session["counter"] = -1
       poem_status = 0
   else
   
