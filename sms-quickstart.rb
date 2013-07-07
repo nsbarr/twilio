@@ -18,7 +18,7 @@ get '/sms-quickstart' do
   topic = params[:Body]
   #logic on what to send the user
   if topic = "reset"
-    session["counter"] = nil
+    session["counter"] = 0
   elsif sms_count == 0 #ask the user for a topic
     message = "Hi there, what would you like me to write you a poem about?"
   elsif sms_count == 1 #acknowledge topic and send request to poet
