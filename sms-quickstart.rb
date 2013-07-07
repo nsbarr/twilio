@@ -48,9 +48,9 @@ get '/sms-quickstart' do
             :to => request_log[topic_reminder],
             :body => poem
             )
-    elsif poets.exclude? params[:From] && session["counter"] == 0  # it's our first time chatting with the requester
+    elsif !poets.include? params[:From] && session["counter"] == 0  # it's our first time chatting with the requester
        message = "Hi there, what would you like me to write you a poem about?"
-    elsif poets.exclude? params[:From] && session["counter"] == 1 # we just got a request from the user
+    elsif !poets.include? params[:From] && session["counter"] == 1 # we just got a request from the user
       topic = params[:Body]
       requester = params[:From]
       request_log[topic] = requester
