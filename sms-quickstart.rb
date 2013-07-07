@@ -5,13 +5,14 @@ require 'sinatra'
 enable :sessions
 
 request_log = Hash.new # topic -> phone number
+poem = "foo"
+
 
 get '/sms-quickstart' do
   
 
   poets = ["+14782277137"] #array of poets
   poet_to_send_to = ["+14782277137"].sample
-  poem = "foo"
   session["counter"] ||= 0 #keeps track of messages the user has sent
     
   
