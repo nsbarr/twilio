@@ -20,7 +20,16 @@ get '/sms-quickstart' do
   
   poem_status = session["request_status"]
   
-  case poem_status 
+  if params[:Body] == "counter"
+    message = session["counter"]
+  elsif params[:Body] == "poemstatus"
+    message = poem_status
+  elsif params[:Body] == "reset"
+      session["counter"] = 0
+      poem_status = 0
+  else
+  
+  case poem_status
     
   when 0
     if poets.include? params[:From] # if this is from a poet, we should assume it's a poem.
@@ -75,6 +84,7 @@ get '/sms-quickstart' do
   else
     message = "How did we get here?"
   end
+end
   twiml = Twilio::TwiML::Response.new do |r|
     r.Sms message
   end
