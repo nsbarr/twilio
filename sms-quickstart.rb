@@ -54,6 +54,7 @@ get '/sms-quickstart' do
       message = "Hi there, what would you like me to write you a poem about?"
     elsif session["counter"] == 1
       requester = params[:From]
+      topic = params[:Body]
       request_log[topic] = requester
       message = "OK, I'll write a poem about #{topic}. Give me a few minutes, will ya?"
       #twilio info
