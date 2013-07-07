@@ -32,9 +32,22 @@ get '/sms-quickstart' do
   case poem_status
     
   when 0
-    if poets.include? params[:From] # if this is from a poet, we should assume it's a poem.
+    if poets.include? params[:From] && session["counter"] == 0 # if this is the first message from a poet, we should assume it's a poem.
       poem = params[:Body] #the body is the poem 
       message = "Thanks for the poem! Can you remind me the topic?"
+    elsif poets.include? params[:From] && session["counter"] == 1 # if this is the second message from a poet, we should assume it's the topic.
+       topic_reminder = params[:Body]
+        message = "Got it, thanks!"
+         #twilio info
+          twilio_sid = "ACfff561dd3ac397a29183f7bf7d68e370"
+          twilio_token = "cbb3471db9d83b61598159b5210404f1"
+          twilio_phone_number = "+16464900303"
+          @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+          @twilio_client.account.sms.messages.create(
+            :from => twilio_phone_number,
+            :to => request_log[topic_reminder],
+            :body => poem
+            )
     elsif session["counter"] == 0 # it's our first time chatting with the requester
        message = "Hi there, what would you like me to write you a poem about?"
     elsif session["counter"] == 1 # we just got a request from the user
