@@ -19,6 +19,7 @@ get '/sms-quickstart' do
   #logic on what to send the user
   if topic = "reset"
     session["counter"] = 0
+    message = "Ok let's start over."
   elsif sms_count == 0 #ask the user for a topic
     message = "Hi there, what would you like me to write you a poem about?"
   elsif sms_count == 1 #acknowledge topic and send request to poet
