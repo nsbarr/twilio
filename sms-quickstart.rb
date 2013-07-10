@@ -7,6 +7,10 @@ enable :sessions
 request_log = Hash.new # topic -> phone number
 poem = "foo"
 
+get '/' do  
+  "Hello, World!"  
+end
+
 get '/sms-quickstart' do
   
 
