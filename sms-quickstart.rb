@@ -7,7 +7,6 @@ enable :sessions
 request_log = Hash.new # topic -> phone number
 poem = "foo"
 
-
 get '/sms-quickstart' do
   
 
@@ -47,7 +46,7 @@ get '/sms-quickstart' do
       )
       end
     else
-      message = "Hush now, poet."
+      message = "I think you've written enough!"
     end
   
   elsif !poets.include? params[:From]
@@ -57,7 +56,7 @@ get '/sms-quickstart' do
       requester = params[:From]
       topic = params[:Body]
       request_log[topic] = requester
-      message = "OK, I'll write a poem about #{topic} and it says here you're #{request_log[topic]}. Give me a few minutes, will ya?"
+      message = "OK, I'll write a poem about #{topic}. Give me a few minutes, will ya?"
       #twilio info
       twilio_sid = "ACfff561dd3ac397a29183f7bf7d68e370"
       twilio_token = "cbb3471db9d83b61598159b5210404f1"
@@ -70,7 +69,7 @@ get '/sms-quickstart' do
         :body => "Oh hey, won't you write someone a poem about #{topic}? Just post your poem as a reply."
         )
     else
-      message = "hush now, requester." 
+      message = "I think you've had enough. Try again tomorrow?" 
     end
   else 
     message = "This is message number #{session["counter"]} and I don't know how to handle it."
