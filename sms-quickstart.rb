@@ -2,42 +2,43 @@ require 'rubygems'
 require 'twilio-ruby'
 require 'sinatra'
  
-enable :sessions
+enable :sessions 
 
-request_log = Hash.new # topic -> phone number
-poem = "foo"
+request_log = Hash.new                              # topic -> phone number. this should match phone numbers 
+                                                    # with topics so we know who to text poems to across all sessions
 
-get '/' do  
+poem = "foo"                                        # just introduce poem variable
+
+get '/' do                                          # placeholder webview for homepage
   "Hello, World!"  
 end
 
 get '/sms-quickstart' do
   
 
-  poets = ["+14782277137"] #array of poets
-  poet_to_send_to = ["+14782277137"].sample
-  session["counter"] ||= 0 #keeps track of messages the user has sent
+  poets = ["+14782277137"]                          # array of poets
+  poet_to_send_to = ["+14782277137"].sample         # pick random poet
+  
+  session["counter"] ||= 0                          # keeps track of messages the user has sent
     
   
-  if params[:Body] == "counter"
+  if params[:Body] == "counter"                     # behavior for special keyword "counter"
     message = session["counter"]
-  elsif params[:Body] == "poemstatus"
-    message = poem_status
-  elsif params[:Body] == "reset"
+    
+  elsif params[:Body] == "reset"                    # behavior for special keyword "reset"
     session["counter"] = -1
-    poem_status = 0
   
-  elsif poets.include? params[:From]
-    if session["counter"] == 0
-      poem = params[:Body] #the body is the poem 
+  elsif poets.include? params[:From]                # if the text is from the poem...
+    if session["counter"] == 0                      # and counter is 0
+      poem = params[:Body]                          # the text is the poem 
       message = "Thanks for the poem! Can you remind me the topic?"
-    elsif session["counter"] == 1 
-      topic = params[:Body]
+    elsif session["counter"] == 1                   # if the counter is 1
+      topic = params[:Body]                         # the text is the topic.
       message = "Got it, thanks!"
       
-      if request_log[topic] == nil
+      if request_log[topic] == nil                  # if the topic doesn't map to a phone number throw an error.
         message = "Hm, something's wrong with this. Try again later."
-      else
+      else                                          # otherwise send the poem to the topic requester.
       #twilio info
       twilio_sid = "ACfff561dd3ac397a29183f7bf7d68e370"
       twilio_token = "cbb3471db9d83b61598159b5210404f1"
@@ -48,9 +49,10 @@ get '/sms-quickstart' do
           :to => request_log[topic],
           :body => poem
       )
+      session["counter"] = -1                       # set the counter to -1. it should increment up to 0 at the end of the GET
       end
-    else
-      message = "I think you've written enough!"
+    else                                            # the poet should always be in a counter state of 0 or 1. error handling.
+      message = "We're in a weird place. check counter"
     end
   
   elsif !poets.include? params[:From]
