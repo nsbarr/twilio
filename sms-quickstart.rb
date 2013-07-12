@@ -37,7 +37,8 @@ get '/sms-quickstart' do
       message = "Got it, thanks!"
       
       if request_log[topic] == nil                  # if the topic doesn't map to a phone number throw an error.
-        message = "Hm, something's wrong with this. Try again later."
+        message = "Hm, I don't recognize that topic. Try again?"
+        session["counter"] = 0                      # set the counter to 0. it should increment up to 1 at the end of the GET
       else                                          # otherwise send the poem to the topic requester.
       #twilio info
       twilio_sid = "ACfff561dd3ac397a29183f7bf7d68e370"
