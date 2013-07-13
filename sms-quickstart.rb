@@ -76,7 +76,7 @@ get '/sms-quickstart' do
         :body => "Oh hey, won't you write someone a poem about #{topic}? Just post your poem as a reply."
         )
     else
-      message = "I think you've had enough poetry for today. Try again tomorrow!" 
+      message = "Whoa, chill. This poetry stuff takes some time! If you'd like to request another poem, text me tomorrow." 
     end
   else 
     message = "This is message number #{session["counter"]} and I don't know how to handle it."
