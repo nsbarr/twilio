@@ -1,3 +1,8 @@
 .inkwell {
     font-size: 4vw;
 }
+
+.container{
+    width: 90%
+    margin: 0 auto;
+}
