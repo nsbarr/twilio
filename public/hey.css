@@ -6,3 +6,9 @@
     width: 90%;
     margin: 0 auto;
 }
+
+.image{
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
