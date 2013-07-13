@@ -10,7 +10,7 @@ request_log = Hash.new                              # topic -> phone number. thi
 poem = "foo"                                        # just introduce poem variable
 
 get '/' do                                          # placeholder webview for homepage
-  "Hello, World!"  
+  erb :index
 end
 
 get '/sms-quickstart' do
@@ -28,7 +28,7 @@ get '/sms-quickstart' do
   elsif params[:Body] == "reset"                    # behavior for special keyword "reset"
     session["counter"] = -1
   
-  elsif poets.include? params[:From]                # if the text is from the poem...
+  elsif poets.include? params[:From]                # if the text is from the poet...
     if session["counter"] == 0                      # and counter is 0
       poem = params[:Body]                          # the text is the poem 
       message = "Thanks for the poem! Can you remind me the topic?"
@@ -76,7 +76,7 @@ get '/sms-quickstart' do
         :body => "Oh hey, won't you write someone a poem about #{topic}? Just post your poem as a reply."
         )
     else
-      message = "I think you've had enough. Try again tomorrow?" 
+      message = "I think you've had enough poetry for today. Try again tomorrow!" 
     end
   else 
     message = "This is message number #{session["counter"]} and I don't know how to handle it."
