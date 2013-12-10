@@ -27,7 +27,7 @@ get '/sms-quickstart' do
     
   elsif params[:Body] == "reset"                    # behavior for special keyword "reset"
     session["counter"] = -1
-  
+    
   elsif poets.include? params[:From]                # if the text is from the poet...
     if session["counter"] == 0                      # and counter is 0
       poem = params[:Body]                          # the text is the poem 
