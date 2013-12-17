@@ -1,16 +1,21 @@
 .inkwell {
     font-size: 3.6vw;
     text-align: center;
+    font-family: Courier, "Courier New", monospace;
+    font-color: white;
 }
 
 .container{
     width: 90%;
     margin: 0 auto;
-    background-color: rgb(21,28,37);
 }
 
 .image{
     display: block;
     margin: 0 auto;
     width: 60%;
+}
+
+body {
+    background-color: rgb(21,28,37);
 }
