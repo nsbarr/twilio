@@ -19,3 +19,7 @@
 body {
     background-color: rgb(21,28,37);
 }
+
+@media screen and (max-width: 1000px) {
+  p { font-size: 2em; }
+}
