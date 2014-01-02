@@ -23,3 +23,7 @@ body {
 @media screen and (max-width: 1000px) {
   .inkwell { font-size: 7.2vw; }
 }
+
+.buttons{
+    width: 90%;
+}
