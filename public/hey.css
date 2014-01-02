@@ -21,5 +21,5 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
-  p { font-size: 2em; }
+  .inkwell { font-size: 7.2vw; }
 }
